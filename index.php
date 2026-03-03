@@ -58,7 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
 
 // $files = array_diff(scandir($uploadDir, SCANDIR_SORT_DESCENDING), array('.', '..'));
 
-$files = array_diff(scandir($uploadDir), array('.', '..'));
+// $files = array_diff(scandir($uploadDir), array('.', '..'));
+// Don't show files start with dot
+$files = array_filter(scandir($uploadDir), function($file) use ($uploadDir) {
+    return $file !== '.' 
+        && $file !== '..'
+        && $file[0] !== '.'   // exclude hidden files like .gitignore
+        && is_file($uploadDir . $file);
+});
 
 usort($files, function($a, $b) use ($uploadDir) {
     return filemtime($uploadDir . $b) - filemtime($uploadDir . $a);
