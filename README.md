@@ -32,6 +32,7 @@ This project is designed to be lightweight, dependency-free, and easy to deploy 
 
 ---
 
+
 ## Setup
 
 1. Place the project folder inside your web server directory.  
