@@ -207,7 +207,7 @@ h1, h2 {
     background: #c62828;
 }
 
-.clear-btn {
+/*.clear-btn {
     margin-bottom: 15px;
     background: #ff9800;
     border: none;
@@ -219,6 +219,20 @@ h1, h2 {
 
 .clear-btn:hover {
     background: #f57c00;
+}*/
+
+.clear-btn {
+    margin-bottom: 15px;
+    background: #e53935;   /* red */
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+}
+
+.clear-btn:hover {
+    background: #c62828;
 }
 
 
