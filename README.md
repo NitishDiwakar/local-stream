@@ -32,6 +32,56 @@ This project is designed to be lightweight, dependency-free, and easy to deploy 
 
 ---
 
+## Setup
+
+1. Place the project folder inside your web server directory.  
+   Example (XAMPP):
+
+htdocs/local-stream/
+
+2. Ensure `uploads/` directory exists.
+
+3. Add `.gitignore` inside `uploads/` to keep the folder tracked:
+
+
+!.gitignore
+
+4. Access via browser:
+
+http://localhost/local-stream/
+
+or
+
+http://your-local-ip/local-stream/
+
+5. If uploading large files, increase `php.ini` limits:
+
+upload_max_filesize post_max_size
+
+---## Setup
+
+1. Place the project folder inside your web server directory.  
+   Example (XAMPP):
+
+htdocs/local-stream/
+
+2. Ensure `uploads/` directory exists.
+
+
+3. Access via browser:
+
+http://localhost/local-stream/
+
+or
+
+http://your-local-ip/local-stream/
+
+4. If uploading large files, increase `php.ini` limits:
+
+upload_max_filesize post_max_size
+
+---
+
 ## Streaming Implementation
 
 Video playback is handled through a custom PHP streaming engine.
@@ -72,33 +122,6 @@ Ideal for:
 
 ---
 
-## Setup
-
-1. Place the project folder inside your web server directory.  
-   Example (XAMPP):
-
-htdocs/local-stream/
-
-2. Ensure `uploads/` directory exists.
-
-3. Add `.gitignore` inside `uploads/` to keep the folder tracked:
-
-
-!.gitignore
-
-4. Access via browser:
-
-http://localhost/local-stream/
-
-or
-
-http://<your-local-ip>/local-stream/
-
-5. If uploading large files, increase `php.ini` limits:
-
-upload_max_filesize post_max_size
-
----
 
 ## Security Notes
 
