@@ -41,12 +41,7 @@ htdocs/local-stream/
 
 2. Ensure `uploads/` directory exists.
 
-3. Add `.gitignore` inside `uploads/` to keep the folder tracked:
-
-
-!.gitignore
-
-4. Access via browser:
+3. Access via browser:
 
 http://localhost/local-stream/
 
@@ -54,7 +49,7 @@ or
 
 http://your-local-ip/local-stream/
 
-5. If uploading large files, increase `php.ini` limits:
+4. If uploading large files, increase `php.ini` limits:
 
 upload_max_filesize post_max_size
 
