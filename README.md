@@ -54,28 +54,6 @@ http://your-local-ip/local-stream/
 
 upload_max_filesize post_max_size
 
----## Setup
-
-1. Place the project folder inside your web server directory.  
-   Example (XAMPP):
-
-htdocs/local-stream/
-
-2. Ensure `uploads/` directory exists.
-
-
-3. Access via browser:
-
-http://localhost/local-stream/
-
-or
-
-http://your-local-ip/local-stream/
-
-4. If uploading large files, increase `php.ini` limits:
-
-upload_max_filesize post_max_size
-
 ---
 
 ## Streaming Implementation
