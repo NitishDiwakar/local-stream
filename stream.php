@@ -19,9 +19,24 @@ if (!file_exists($filePath)) {
 }
 
 $size = filesize($filePath);
-$mime = mime_content_type($filePath);
+// $mime = mime_content_type($filePath);
+
+// header("Content-Type: $mime");
+// 
+$ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+$mimeTypes = [
+    'mp4'  => 'video/mp4',
+    'mov'  => 'video/quicktime',
+    'webm' => 'video/webm',
+    '3gp'  => 'video/3gpp'
+];
+
+$mime = $mimeTypes[$ext] ?? 'application/octet-stream';
 
 header("Content-Type: $mime");
+// 
+
 header("Accept-Ranges: bytes");
 
 if (isset($_SERVER['HTTP_RANGE'])) {

@@ -142,7 +142,7 @@ usort($files, function($a, $b) use ($uploadDir) {
             <div class="file-actions">
 
                 <?php // if ($ext === 'mp4' || $ext === 'mov'): ?>
-                <?php if (in_array($ext, ['mp4','mov','3gp','webm','MOV'])): ?>
+                <?php  if (in_array($ext, ['mp4','mov','3gp','webm','MOV'])): ?>
                     <a href="play.php?file=<?php echo rawurlencode($file); ?>" target="_blank">
                         <button type="button" class="play-btn">▶</button>
                     </a>
