@@ -6,7 +6,7 @@
 # Licence : MIT
 
 $uploadDir = __DIR__ . "/uploads/";
-$allowedExtensions = ['mp4', 'mov', 'MOV', 'zip', '7z', 'jpg', 'jpeg', 'png', 'pdf', 'mp3', 'rar'];
+$allowedExtensions = ['mp4', 'mov', 'MOV', 'zip', '7z', 'jpg', 'jpeg', 'png', 'pdf', 'mp3', 'rar', 'txt'];
 // 
 /* DELETE SINGLE FILE */
 if (isset($_POST['delete_file'])) {
@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     $targetPath = $uploadDir . $fileName;
 
     if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+        touch($targetPath); // sets current time
         echo "Upload successful.";
     } else {
         http_response_code(500);
