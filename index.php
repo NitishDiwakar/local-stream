@@ -68,8 +68,19 @@ $files = array_filter(scandir($uploadDir), function($file) use ($uploadDir) {
         && is_file($uploadDir . $file);
 });
 
-usort($files, function($a, $b) use ($uploadDir) {
+/*usort($files, function($a, $b) use ($uploadDir) {
     return filemtime($uploadDir . $b) - filemtime($uploadDir . $a);
+});*/
+
+
+$fileTimes = [];
+
+foreach ($files as $f) {
+    $fileTimes[$f] = filemtime($uploadDir . $f);
+}
+
+usort($files, function($a, $b) use ($fileTimes) {
+    return $fileTimes[$b] <=> $fileTimes[$a];
 });
 
 ?>
@@ -119,12 +130,14 @@ usort($files, function($a, $b) use ($uploadDir) {
             <div class="file-left">
 
                 <?php if (in_array($ext, ['jpg','jpeg','png'])): ?>
-                    <img src="uploads/<?php echo rawurlencode($file); ?>" class="thumb">
+                    <img loading="lazy" src="uploads/<?php echo rawurlencode($file); ?>" class="thumb">
 
                 <?php elseif ($ext === 'mp4'): ?>
-                    <video class="thumb" muted preload="metadata">
-                        <source src="uploads/<?php echo rawurlencode($file); ?>" type="video/mp4">
-                    </video>
+                    <!-- <video class="thumb" muted preload="metadata">
+                        <source src="uploads/<?php // echo rawurlencode($file); ?>" type="video/mp4">
+                    </video> -->
+                    <!-- Above was making page load slow -->
+                    <div class="file-icon">🎬</div>
 
                 <?php else: ?>
                     <div class="file-icon">📦</div>
