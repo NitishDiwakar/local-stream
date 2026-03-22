@@ -34,7 +34,7 @@ if (isset($_POST['delete_all'])) {
 }
 // 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+/*if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     $file = $_FILES['file'];
     $fileName = basename($file['name']);
     $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
@@ -54,6 +54,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
         http_response_code(500);
         echo "Upload failed.";
     }
+    exit;
+}*/
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
+
+    $files = $_FILES['file'];
+
+    for ($i = 0; $i < count($files['name']); $i++) {
+
+        if ($files['error'][$i] !== UPLOAD_ERR_OK) continue;
+
+        $fileName = basename($files['name'][$i]);
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($fileExt, $allowedExtensions)) continue;
+
+        $targetPath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($files['tmp_name'][$i], $targetPath)) {
+            touch($targetPath);
+        }
+    }
+
+    echo "Upload complete";
     exit;
 }
 
@@ -99,7 +123,7 @@ usort($files, function($a, $b) use ($fileTimes) {
     <h1>File Upload</h1>
 
     <div class="upload-box" id="dropArea">
-        <input type="file" id="fileInput">
+        <input type="file" id="fileInput" multiple>
         <p id="dropText">Drag & Drop files here<br>or click to select</p>
 
         <p id="selectedFileName" class="selected-file"></p>

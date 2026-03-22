@@ -13,7 +13,8 @@ const progressBar = document.getElementById("progressBar");
 const statusText = document.getElementById("status");
 const selectedFileName = document.getElementById("selectedFileName");
 
-let selectedFile = null;
+// let selectedFile = null;
+let selectedFiles = [];
 
 /* Open file selector ONLY when clicking text area */
 document.getElementById("dropText").addEventListener("click", () => {
@@ -21,10 +22,17 @@ document.getElementById("dropText").addEventListener("click", () => {
 });
 
 fileInput.addEventListener("change", (e) => {
-    selectedFile = e.target.files[0];
+    /*selectedFile = e.target.files[0];
     if (selectedFile) {
         selectedFileName.innerText = "Selected: " + selectedFile.name;
+    }*/
+
+    selectedFiles = Array.from(e.target.files);
+
+    if (selectedFiles.length > 0) {
+        selectedFileName.innerText = "Selected: " + selectedFiles.length + " files";
     }
+
 });
 
 dropArea.addEventListener("dragover", (e) => {
@@ -39,15 +47,21 @@ dropArea.addEventListener("dragleave", () => {
 dropArea.addEventListener("drop", (e) => {
     e.preventDefault();
     dropArea.classList.remove("dragover");
-    selectedFile = e.dataTransfer.files[0];
+    /*selectedFile = e.dataTransfer.files[0];
 
     if (selectedFile) {
         selectedFileName.innerText = "Selected: " + selectedFile.name;
+    }*/
+    selectedFiles = Array.from(e.dataTransfer.files);
+
+    if (selectedFiles.length > 0) {
+        selectedFileName.innerText = "Selected: " + selectedFiles.length + " files";
     }
+
 });
 
 uploadBtn.addEventListener("click", () => {
-    if (!selectedFile) {
+    /*if (!selectedFile) {
         alert("Please select a file.");
         return;
     }
@@ -62,7 +76,21 @@ uploadBtn.addEventListener("click", () => {
     uploadBtn.disabled = true;
 
     const formData = new FormData();
-    formData.append("file", selectedFile);
+    formData.append("file", selectedFile);*/
+
+    if (selectedFiles.length === 0) {
+    alert("Please select files.");
+    return;
+    }
+
+    const formData = new FormData();
+
+    selectedFiles.forEach(file => {
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (allowedExtensions.includes(ext)) {
+            formData.append("file[]", file);
+        }
+    });
 
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "index.php", true);
@@ -77,8 +105,12 @@ uploadBtn.addEventListener("click", () => {
     xhr.onload = () => {
         if (xhr.status === 200) {
             statusText.innerText = "Upload complete!";
-            selectedFile = null;
+            // selectedFile = null;
+            // fileInput.value = "";
+
+            selectedFiles = [];
             fileInput.value = "";
+
             selectedFileName.innerText = "";
             progressBar.style.width = "0%";
             uploadBtn.disabled = false;
